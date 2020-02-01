@@ -5,13 +5,13 @@ case $- in
 esac
 
 # Some stuff shouldn't be in this file
-source ~/.bash_secrets
+[ -e ~/.bash_secrets ] && source ~/.bash_secrets
 
 # History stuff
 HISTCONTROL=ignoreboth
 shopt -s histappend
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=10000
+HISTFILESIZE=100000
 
 # Opts
 shopt -s checkwinsize
