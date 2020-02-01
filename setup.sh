@@ -5,7 +5,12 @@ destdir="$HOME"
 
 link() {
 	from="$srcdir/$1"
-	to="$destdir/$2"
+	if [ -z "$2" ]; then
+		to="$destdir/.$1"
+	else
+		to="$destdir/$2"
+	fi
+
 	echo "link '$from'"
 	echo "  -> '$to'"
 	if ! rm -f "$to"; then
@@ -25,5 +30,6 @@ link() {
 	fi
 }
 
-link bashrc .bashrc
-link config/nvim/init.vim .config/nvim/init.vim
+link bashrc
+link config/nvim/init.vim
+link local/share/nvim/site/autoload/plug.vim
