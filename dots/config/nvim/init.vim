@@ -2,7 +2,7 @@ call plug#begin()
 Plug 'yuezk/vim-js'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'arakashic/chromatica.nvim'
+Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'pangloss/vim-javascript'
 call plug#end()
@@ -36,6 +36,7 @@ command -nargs=1 Spaces call Spaces(<args>)
 
 " File types
 au BufNewFile,BufRead *.m setlocal filetype=emerald
+au BufNewFile,BufRead *.m setlocal shiftwidth=2 tabstop=2
 au BufNewFile,BufRead *.vue setlocal filetype=html
 
 " Chromatica
@@ -49,6 +50,11 @@ let g:ctrlp_map = '<c-l>'
 
 " vim-go
 let g:go_highlight_diagnostic_errors = 0
+
+" vim-cpp-enhanced-highlight
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_experimental_simple_template_highlight = 1
 
 " netrw
 let g:netrw_liststyle = 3
