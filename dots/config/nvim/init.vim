@@ -5,6 +5,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'pangloss/vim-javascript'
+Plug 'preservim/nerdtree'
 call plug#end()
 
 " Switches
@@ -21,6 +22,11 @@ set ignorecase
 set smartcase
 set splitright
 set splitbelow
+
+" Hotkeys
+tnoremap <C-w> <C-\><C-n><C-w>
+inoremap <C-w> <C-\><C-n><C-w>
+vnoremap <C-w> <C-\><C-n><C-w>
 
 " Highlights
 hi Whitespace ctermfg=darkgrey
@@ -47,6 +53,10 @@ let g:chromatica#enable_at_startup = 1
 " CtrlP
 " (ctrl+l is ctrl+p with dvorak, and p is a bit far away...)
 let g:ctrlp_map = '<c-l>'
+
+" NERDTree
+command Ex NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " vim-go
 let g:go_highlight_diagnostic_errors = 0
