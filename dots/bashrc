@@ -37,6 +37,7 @@ alias vim=nvim
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias rscp='rsync -rclh --progress'
 
 # Create a temp dir, spawn a shell there, delete when done
 tmp() {
