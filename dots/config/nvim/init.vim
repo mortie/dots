@@ -10,7 +10,7 @@ call plug#end()
 
 " Switches
 syntax on
-set nu
+set number
 set list
 set listchars=tab:>·
 set colorcolumn=80
@@ -22,6 +22,12 @@ set ignorecase
 set smartcase
 set splitright
 set splitbelow
+
+" Terminal windows shouldn't have numbers
+augroup TerminalStuff
+	au!
+	autocmd TermOpen * setlocal nonumber
+augroup END
 
 " Hotkeys
 tnoremap <C-w> <C-\><C-n><C-w>
@@ -44,6 +50,7 @@ command -nargs=1 Spaces call Spaces(<args>)
 au BufNewFile,BufRead *.m setlocal filetype=emerald
 au BufNewFile,BufRead *.m setlocal shiftwidth=2 tabstop=2
 au BufNewFile,BufRead *.vue setlocal filetype=html
+au BufNewFile,BufRead *.cup setlocal filetype=cup
 
 " Chromatica
 let g:chromatica#libclang_path = '/usr/lib/llvm-9/lib/libclang.so'
