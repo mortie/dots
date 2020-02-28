@@ -58,6 +58,11 @@ for i in $(seq 1 10); do
 	alias "$dots_acc"="dots $i"
 done
 
+# Connect to a tmux session over ssh
+sst() {
+	ssh -t "$1" "tmux attach -t '$2'"
+}
+
 # Env vars
 export PATH="/usr/lib/go-1.13/bin:$HOME/go/bin:$HOME/.local/bin:$PATH"
 
