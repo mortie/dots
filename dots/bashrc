@@ -60,7 +60,36 @@ done
 
 # Connect to a tmux session over ssh
 sst() {
+	if [ -z "$1" ] || [ -z "$2" ]; then
+		echo "Usage: $0 <host> <tmux session>"
+		return 1
+	fi
 	ssh -t "$1" "tmux attach -t '$2'"
+}
+
+# Go up, until the cwd ends with "$1"
+to() {
+	if [ -z "$1" ]; then
+		echo "Usage: $0 <path fragment>"
+		return 1
+	fi
+
+	if ! pwd | grep "$1/" >/dev/null; then
+		echo "$1: not in the cwd"
+		return 1
+	fi
+
+	while :; do
+		wd="$(pwd)"
+
+		# 'pwd' never seems to return paths with multiple successive slashes,
+		# so checking if "$1//" is contained in "$wd//" is a "reliable" way to
+		# check if "$wd" ends with "$1" using only posix sh.
+		if [ "$wd" = "/" ] || printf "%s" "$wd//" | grep "$1//" >/dev/null; then
+			return
+		fi
+		cd ..
+	done
 }
 
 # Env vars
