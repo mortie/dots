@@ -135,4 +135,16 @@ prompt_dollar() {
 	return $x
 }
 
-PS1='\[\033[01;32m\]\u\[\033[1;92m\]@\[\033[01;32m\]\h\[\033[00m\]: \[\033[01;34m\]\w\[\033[00m\] $(prompt_vc)$(prompt_dollar)'
+prompt_hostname_color() {
+	local x=$?
+
+	if [ -z "$SSH_TTY" ]; then
+		printf '\001\033[01;32m\002'
+	else
+		printf '\001\033[01;33m\002'
+	fi
+
+	return $x
+}
+
+PS1='\[\033[01;32m\]\u\[\033[1;92m\]@$(prompt_hostname_color)\h\[\033[00m\]: \[\033[01;34m\]\w\[\033[00m\] $(prompt_vc)$(prompt_dollar)'
