@@ -71,6 +71,18 @@ input "*" {
 
 	# Exit sway (logs you out of your Wayland session)
 	bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+	# Lock the screen
+	bindsym mod1+l exec swaylock --screenshots --clock --indicator \
+		--indicator-radius 100 \
+		--indicator-thickness 7 \
+		--effect-scale 0.5 --effect-blur 7x5 --effect-scale 2 \
+		--effect-vignette 0.5:0.5
+		--ring-color bb00cc \
+		--key-hl-color 880033 \
+		--line-color 00000000 \
+		--inside-color 00000088 \
+		--separator-color 00000000 
 #
 # Special buttons:
 #
