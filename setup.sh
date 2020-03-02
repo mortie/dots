@@ -32,4 +32,7 @@ link() {
 
 link bashrc
 link config/nvim/init.vim
+link config/sway/config
+link config/sway/brightness.sh
+link config/sway/status.sh
 link local/share/nvim/site/autoload/plug.vim
