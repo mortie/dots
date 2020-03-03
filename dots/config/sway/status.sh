@@ -13,7 +13,7 @@ print_battery() {
 }
 
 print_network() {
-	nmcli device | grep "^$1" | awk '{print $3 " " $4}'
+	nmcli device | grep "^$1" | awk -F '  +' '{print $3 " " $4}' | sed 's/ $//'
 }
 
 print_backlight() {

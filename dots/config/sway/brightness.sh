@@ -14,7 +14,7 @@ max="$(cat "$device/max_brightness")"
 
 changeto() {
 	if [ "$1" -gt "$max" ]; then bri="$max"
-	elif [ "$1" -lt 0 ]; then bri=0
+	elif [ "$1" -lt 0 ]; then bri=1
 	else bri="$1"
 	fi
 
