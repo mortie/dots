@@ -5,7 +5,8 @@ percent() {
 }
 
 print_date() {
-	date +'%Y-%m-%d %H:%M:%S'
+	date +'%a %d %b %H:%M:%S'
+	#date +'%Y-%m-%d %H:%M:%S'
 }
 
 print_battery() {
@@ -24,6 +25,7 @@ print_pa_sink() {
 	data="$(pactl list | grep "Sink #$1" -A 20)"
 	vol="$(printf "%s" "$data" | grep "Volume" | head -n 1 | grep -o '[^ ]\+%' | tr '\n' ' ' | sed 's/ $//' | tr -d '\n')"
 
+	# If muted, colorize the volume.
 	if printf "%s" "$data" | grep "Mute: " | head -n 1 | grep "yes" >/dev/null; then
 		printf "%s" "<span foreground=\"#ffb946\">$vol</span>"
 	else
@@ -34,8 +36,8 @@ print_pa_sink() {
 print_pa_sinks() {
 	pactl list | grep "Sink #" | while read -r line; do
 		id="$(echo "$line" | sed 's/Sink #//')"
-		printf "%s" "$id: $(print_pa_sink "$id")"
-	done
+		printf "%s" "#$id $(print_pa_sink "$id"), "
+	done | sed 's/, $//'
 }
 
 update() {
