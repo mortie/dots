@@ -40,7 +40,7 @@ exec {
 }
 
 # Sway colors
-client.focused           #be5046 #be5046 #be5046 #ffffff #be5046
+client.focused           #be5046 #be5046 #ffffff #ffffff #be5046
 client.focused_inactive  #5c6370 #3b3228 #ffffff #5c6370 #5c6370
 client.unfocused         #5c6370 #3b3228 #ffffff #5c6370 #5c6370
 
