@@ -81,11 +81,9 @@ autocmd FileType netrw setlocal bufhidden=delete
 let g:clipboard = {
 	\ 'name': 'xclipboard',
 	\ 'copy': {
-		\ '+': 'xclip -i -selection clipboard',
-		\ '*': 'xclip -i -selection primary',
+		\ '+': 'wl-copy',
 	\ },
 	\ 'paste': {
-		\ '+': 'xclip -o -selection clipboard',
-		\ '*': 'xclip -o -selection primary',
+		\ '+': 'wl-paste',
 	\ },
 \ }
