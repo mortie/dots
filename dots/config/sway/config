@@ -16,26 +16,37 @@ set $right l
 set $env GDK_BACKEND=wayland
 set $term $env kitty
 set $menu dmenu-wl_path | dmenu-wl | xargs swaymsg exec -- $env
-# Scripts
+# Paths
+set $screenshot_path ~/.config/sway/screenshot.sh
 set $status_path ~/.config/sway/status.sh
 set $brightness_path ~/.config/sway/brightness.sh
 # "Functions"
 set $reload_bar $status_path reload
+set $error notify-send --urgency critical "Command failed."
 
-# Theme stuff
+# Toolkit stuff
 seat seat0 xcursor_theme "Yaru"
 exec_always {
 	gsettings set org.gnome.desktop.interface gtk-theme 'Yaru'
 	gsettings set org.gonme.desktop.interface icon-theme 'Yaru'
 	gsettings set org.gonme.desktop.interface cursor-theme 'Yaru'
-
-	swaybg /usr/local/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png &
 }
+
+# Startup programs
+exec {
+	nextcloud
+	mako
+	swaybg /usr/local/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png
+}
+
+# Sway colors
+client.focused           #be5046 #be5046 #be5046 #ffffff #be5046
+client.focused_inactive  #5c6370 #3b3228 #ffffff #5c6370 #5c6370
+client.unfocused         #5c6370 #3b3228 #ffffff #5c6370 #5c6370
 
 # Borders/titles/gaps
 hide_edge_borders --i3 smart_no_gaps
-default_border pixel
-for_window [class="^.*"] border_pixel 3
+default_border pixel 3
 smart_gaps on
 gaps inner 5
 
@@ -52,7 +63,7 @@ output "eDP-1" {
 output "Samsung Electric Company U28E850 HTPJ700441" {
 	mode 3840x2160@30Hz
 	position 1920 0
-	scale 2
+	scale 1.6
 }
 
 ### Input configuration
@@ -77,7 +88,7 @@ input "type:touchpad" {
 	# Start a terminal
 	bindsym $mod+Return exec $term
 
-	# Kill focused window
+	# Kill ocused window
 	bindsym $mod+Shift+q kill
 
 	# Start your launcher
@@ -111,10 +122,19 @@ input "type:touchpad" {
 # Special buttons:
 #
 	# Brightness
-	bindsym XF86MonBrightnessUp exec $brightness_path inc 10 && $reload_bar
-	bindsym Shift+XF86MonBrightnessUp exec $brightness_path inc 5 && $reload_bar
-	bindsym XF86MonBrightnessDown exec $brightness_path dec 10 && $reload_bar
-	bindsym Shift+XF86MonBrightnessDown exec $brightness_path dec 5 && $reload_bar
+	bindsym XF86MonBrightnessUp exec $brightness_path inc 10 && $reload_bar || $error
+	bindsym Shift+XF86MonBrightnessUp exec $brightness_path inc 5 && $reload_bar || $error
+	bindsym XF86MonBrightnessDown exec $brightness_path dec 10 && $reload_bar || $error
+	bindsym Shift+XF86MonBrightnessDown exec $brightness_path dec 5 && $reload_bar || $error
+	# Audio
+	bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10% && $reload_bar || $error
+	bindsym Shift+XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && $reload_bar || $error
+	bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10% && $reload_bar || $error
+	bindsym Shift+XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && $reload_bar || $error
+	bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && $reload_bar || $error
+	#Screenshot
+	bindsym Print exec $screenshot_path || $error
+	bindsym Print+Shift exec $screenshot_path select || $error
 #
 # Moving around:
 #
@@ -153,6 +173,8 @@ input "type:touchpad" {
 	bindsym $mod+8 workspace 8
 	bindsym $mod+9 workspace 9
 	bindsym $mod+0 workspace 10
+	bindsym $mod+bracketright workspace next
+	bindsym $mod+bracketleft workspace prev
 	# Move focused container to workspace
 	bindsym $mod+Shift+1 move container to workspace 1
 	bindsym $mod+Shift+2 move container to workspace 2
@@ -164,6 +186,8 @@ input "type:touchpad" {
 	bindsym $mod+Shift+8 move container to workspace 8
 	bindsym $mod+Shift+9 move container to workspace 9
 	bindsym $mod+Shift+0 move container to workspace 10
+	bindsym $mod+Shift+bracketright move container to workspace next
+	bindsym $mod+Shift+bracketleft move container to workspace prev
 	# Note: workspaces can have any name you want, not just numbers.
 	# We just use 1-10 as the default.
 #
@@ -234,6 +258,7 @@ bindsym $mod+r mode "resize"
 # Read `man 5 sway-bar` for more information about this section.
 bar {
 	position bottom
+	pango_markup enabled
 
 	# When the status_command prints a new line to stdout, swaybar updates.
 	# The default just shows the current date and time.
