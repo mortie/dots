@@ -18,10 +18,8 @@ shopt -s checkwinsize
 bind "set completion-ignore-case on"
 bind "set show-all-if-ambiguous on"
 
-# I want colors in tmux...
-if [ "$TERM" = screen ]; then
-	export TERM=xterm-256color
-fi
+# Can we just pretend literally everything is xterm-256color
+export TERM=xterm-256color
 
 # Color config and aliases
 if [ -x /usr/bin/dircolors ]; then
