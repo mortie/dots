@@ -13,7 +13,7 @@ set $down j
 set $up k
 set $right l
 # Env/term
-set $env GDK_BACKEND=wayland
+set $env MOZ_ENABLE_WAYLAND=1
 set $term $env kitty
 set $menu dmenu-wl_path | dmenu-wl | xargs swaymsg exec -- $env
 # Paths
