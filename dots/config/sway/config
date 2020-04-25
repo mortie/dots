@@ -20,6 +20,8 @@ set $menu dmenu-wl_path | dmenu-wl | xargs swaymsg exec -- $env
 set $screenshot_path ~/.config/sway/screenshot.sh
 set $status_path ~/.config/sway/status.sh
 set $brightness_path ~/.config/sway/brightness.sh
+set $lock_path ~/.config/sway/lock.sh
+set $idle_path ~/.config/sway/idle.sh
 # "Functions"
 set $reload_bar $status_path reload
 set $error notify-send --urgency critical "Command failed."
@@ -36,7 +38,8 @@ exec_always {
 exec {
 	nextcloud
 	mako
-	swaybg /usr/local/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png
+	swaybg -i ~/.config/sway/background.png
+	$idle_path
 }
 
 # Sway colors
@@ -49,11 +52,6 @@ hide_edge_borders --i3 smart_no_gaps
 default_border pixel 3
 smart_gaps on
 gaps inner 5
-
-### Output configuration
-#
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/local/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 output "eDP-1" {
 	scale 2
@@ -108,16 +106,7 @@ input "type:touchpad" {
 	bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
 	# Lock the screen
-	bindsym mod1+l exec swaylock --screenshots --clock --indicator \
-		--indicator-radius 100 \
-		--indicator-thickness 7 \
-		--effect-scale 0.5 --effect-blur 7x5 --effect-scale 2 \
-		--effect-vignette 0.5:0.5 \
-		--ring-color bb00cc \
-		--key-hl-color 880033 \
-		--line-color 00000000 \
-		--inside-color 00000088 \
-		--separator-color 00000000 
+	bindsym mod1+l exec $lock_path
 #
 # Special buttons:
 #
