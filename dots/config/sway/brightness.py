@@ -11,7 +11,7 @@ with open(device + "/brightness") as f:
 with open(device + "/max_brightness") as f:
     max_bri = int(f.readline())
 
-def change_between(curr, new, t = 0.1, steps = 10):
+def change_between(curr, new, t = 0.2, steps = 10):
     if new > max_bri:
         new = max_bri
     elif new < 0.005 * max_bri:
