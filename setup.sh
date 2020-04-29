@@ -33,7 +33,7 @@ link() {
 link bashrc
 link config/nvim/init.vim
 link config/sway/config
-link config/sway/brightness.sh
+link config/sway/brightness.py
 link config/sway/screenshot.sh
 link config/sway/status.sh
 link config/sway/lock.sh

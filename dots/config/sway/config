@@ -19,7 +19,7 @@ set $menu dmenu-wl_path | dmenu-wl | xargs swaymsg exec -- $env
 # Paths
 set $screenshot_path ~/.config/sway/screenshot.sh
 set $status_path ~/.config/sway/status.sh
-set $brightness_path ~/.config/sway/brightness.sh
+set $brightness_path ~/.config/sway/brightness.py
 set $lock_path ~/.config/sway/lock.sh
 set $idle_path ~/.config/sway/idle.sh
 # "Functions"
@@ -51,7 +51,7 @@ client.unfocused         #5c6370 #3b3228 #ffffff #5c6370 #5c6370
 hide_edge_borders --i3 smart_no_gaps
 default_border pixel 3
 smart_gaps on
-gaps inner 5
+gaps inner 10
 
 output "eDP-1" {
 	scale 2
@@ -111,8 +111,8 @@ input "type:touchpad" {
 # Special buttons:
 #
 	# Brightness
-	bindsym XF86MonBrightnessUp exec $brightness_path inc 5 && $reload_bar || $error
-	bindsym XF86MonBrightnessDown exec $brightness_path dec 5 && $reload_bar || $error
+	bindsym XF86MonBrightnessUp exec $brightness_path 0.2 && $reload_bar || $error
+	bindsym XF86MonBrightnessDown exec $brightness_path -0.2 && $reload_bar || $error
 	# Audio
 	bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10% && $reload_bar || $error
 	bindsym Shift+XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && $reload_bar || $error
