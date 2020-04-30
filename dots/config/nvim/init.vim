@@ -2,11 +2,18 @@ call plug#begin()
 Plug 'yuezk/vim-js'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'octol/vim-cpp-enhanced-highlight'
+"Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'preservim/nerdtree'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'jackguo380/vim-lsp-cxx-highlight'
 call plug#end()
+
+function CocPlugInstall()
+	CocInstall coc-clangd
+endfunc
 
 " Switches
 syntax on
@@ -22,6 +29,7 @@ set ignorecase
 set smartcase
 set splitright
 set splitbelow
+set mouse=a
 
 " Terminal windows shouldn't have numbers
 augroup TerminalStuff
@@ -37,8 +45,10 @@ vnoremap <C-w> <C-\><C-n><C-w>
 " Highlights
 hi Whitespace ctermfg=darkgrey
 hi ColorColumn ctermbg=black
+hi Pmenu ctermfg=NONE ctermbg=black guibg=black
 
 " Utility functions
+
 function Spaces(num)
 	exec 'set et'
 	exec 'set ts =' . a:num
@@ -51,11 +61,6 @@ au BufNewFile,BufRead *.m setlocal filetype=emerald
 au BufNewFile,BufRead *.m setlocal shiftwidth=2 tabstop=2
 au BufNewFile,BufRead *.vue setlocal filetype=html
 au BufNewFile,BufRead *.cup setlocal filetype=cup
-
-" Chromatica
-let g:chromatica#libclang_path = '/usr/lib/llvm-9/lib/libclang.so'
-let g:chromatica#responsive_mode = 1
-let g:chromatica#enable_at_startup = 1
 
 " CtrlP
 " (ctrl+l is ctrl+p with dvorak, and p is a bit far away...)
@@ -73,17 +78,18 @@ let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_experimental_simple_template_highlight = 1
 
+" Coc stuff
+set updatetime=300
+let g:lsp_cxx_hl_ft_whitelist = ['c', 'cpp', 'objc', 'objcpp', 'cc', 'h', 'hh', 'hpp']
+
+" Status line
+set statusline=
+set statusline+='%f'\ %h%w%m%r\ 
+set statusline+=%{coc#status()}%{get(b:,'coc_current_function','')}\ 
+set statusline+=%#warningmsg#
+set statusline+=%*
+set statusline+=%=%(%l,%c%V\ %=\ %P%)
+
 " netrw
 let g:netrw_liststyle = 3
 autocmd FileType netrw setlocal bufhidden=delete
-
-" Clipboard using xclip and xwayland works way better than wl-{copy,paste}
-let g:clipboard = {
-	\ 'name': 'xclipboard',
-	\ 'copy': {
-		\ '+': 'wl-copy',
-	\ },
-	\ 'paste': {
-		\ '+': 'wl-paste',
-	\ },
-\ }
