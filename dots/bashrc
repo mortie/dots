@@ -21,6 +21,9 @@ bind "set show-all-if-ambiguous on"
 # Can we just pretend literally everything is xterm-256color
 export TERM=xterm-256color
 
+# Default stuff
+export EDITOR=nvim
+
 # Color config and aliases
 if [ -x /usr/bin/dircolors ]; then
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
