@@ -31,10 +31,11 @@ set splitright
 set splitbelow
 set mouse=a
 
-" Terminal windows shouldn't have numbers
+" Terminal windows are special
 augroup TerminalStuff
 	au!
 	autocmd TermOpen * setlocal nonumber
+	autocmd TermOpen * setlocal scrolloff=0
 augroup END
 
 " Hotkeys
