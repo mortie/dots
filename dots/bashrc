@@ -41,6 +41,24 @@ alias l='ls -CF'
 alias rscp='rsync -rclh --progress'
 alias gdiff='diff -urN --color=always'
 
+# Copy stdin to clipboard
+cpcopy() {
+	if [ -z "$WAYLAND_DISPLAY" ]; then
+		xclip -selection clipboard
+	else
+		wl-copy
+	fi
+}
+
+# Upload to p.mort.coffee
+bin() {
+	if [ -z "$1" ]; then
+		curl --silent --upload-file - https://p.mort.coffee | tee >(cpcopy)
+	else
+		curl --silent --upload-file "$1" https://p.mort.coffee | tee >(cpcopy)
+	fi
+}
+
 # Create a temp dir, spawn a shell there, delete when done
 tmp() {
 	local dir="$(mktemp -d "/tmp/$USER.tmp.XXXXXXXX")"
@@ -116,7 +134,7 @@ prompt_vc() {
 	local branch=$(git branch 2>/dev/null)
 	if ! [ -z "$branch" ]; then
 		printf '\001\033[31m\002%s' "$(echo "$branch" | grep '\* ' | sed 's/\* //')"
-		if ! git diff --quiet --no-ext-diff; then
+		if ! git diff --quiet --no-ext-diff 2>/dev/null; then
 			printf '\001\033[1;33m\002*'
 		fi
 		printf ' '
