@@ -42,20 +42,29 @@ alias rscp='rsync -rclh --progress'
 alias gdiff='diff -urN --color=always'
 
 # Copy stdin to clipboard
-cpcopy() {
+cbcopy() {
 	if [ -z "$WAYLAND_DISPLAY" ]; then
-		xclip -selection clipboard
+		xclip -i -selection clipboard
 	else
 		sed -z '$ s/\n$//' | wl-copy
+	fi
+}
+
+# Get clipboard data
+cbget() {
+	if [ -z "$WAYLAND_DISPLAY" ]; then
+		xclip -o -selection clipboard
+	else
+		wl-paste
 	fi
 }
 
 # Upload to p.mort.coffee
 bin() {
 	if [ -z "$1" ]; then
-		curl --silent --upload-file - https://p.mort.coffee | tee >(cpcopy)
+		curl --silent --upload-file - https://p.mort.coffee | tee >(cbcopy)
 	else
-		curl --silent --upload-file "$1" https://p.mort.coffee | tee >(cpcopy)
+		curl --silent --upload-file "$1" https://p.mort.coffee | tee >(cbcopy)
 	fi
 }
 
