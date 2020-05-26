@@ -46,7 +46,7 @@ cpcopy() {
 	if [ -z "$WAYLAND_DISPLAY" ]; then
 		xclip -selection clipboard
 	else
-		wl-copy
+		sed -z '$ s/\n$//' | wl-copy
 	fi
 }
 
