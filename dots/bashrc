@@ -44,7 +44,7 @@ alias gdiff='diff -urN --color=always'
 # Copy stdin to clipboard
 cbcopy() {
 	if [ -z "$WAYLAND_DISPLAY" ]; then
-		xclip -i -selection clipboard
+		sed -z '$ s/\n$//' | xclip -i -selection clipboard
 	else
 		sed -z '$ s/\n$//' | wl-copy
 	fi
