@@ -22,6 +22,7 @@ set $status_path ~/.config/sway/status.sh
 set $brightness_path ~/.config/sway/brightness.py
 set $lock_path ~/.config/sway/lock.sh
 set $idle_path ~/.config/sway/idle.sh
+set $pastebin https://p.mort.coffee
 # "Functions"
 set $reload_bar $status_path reload
 set $error notify-send --urgency critical "Command failed."
@@ -111,17 +112,19 @@ input "type:touchpad" {
 # Special buttons:
 #
 	# Brightness
-	bindsym XF86MonBrightnessUp exec $brightness_path 0.2 && $reload_bar || $error
-	bindsym XF86MonBrightnessDown exec $brightness_path -0.2 && $reload_bar || $error
+	bindsym XF86MonBrightnessUp exec $brightness_path 0.4 && $reload_bar || $error
+	bindsym XF86MonBrightnessDown exec $brightness_path -0.4 && $reload_bar || $error
 	# Audio
 	bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10% && $reload_bar || $error
 	bindsym Shift+XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && $reload_bar || $error
 	bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10% && $reload_bar || $error
 	bindsym Shift+XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && $reload_bar || $error
 	bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && $reload_bar || $error
-	#Screenshot
-	bindsym Print exec $screenshot_path || $error
-	bindsym Print+Shift exec $screenshot_path select || $error
+	# Screenshot
+	bindsym Print exec $screenshot_path upload
+	bindsym Print+Shift exec $screenshot_path upload select
+	bindsym Print+Ctrl exec $screenshot_path copy
+	bindsym Print+Ctrl+Shift exec $screenshot_path copy select
 #
 # Moving around:
 #
