@@ -32,6 +32,8 @@ link() {
 
 link bashrc
 link config/nvim/init.vim
+link config/nvim/syntax
+link config/nvim/coc-settings.json
 link config/sway/config
 link config/sway/brightness.py
 link config/sway/screenshot.sh
