@@ -6,14 +6,14 @@ host="https://p.mort.coffee"
 
 shot() {
 	if [ -z "$1" ]; then
-		grim -
+		grim -t ppm -
 	else
-		grim -g "$1" -
+		grim -t ppm -g "$1" -
 	fi
 }
 
 compress() {
-	convert png:- jpeg:-
+	convert ppm:- jpeg:-
 }
 
 strip_nl() {
