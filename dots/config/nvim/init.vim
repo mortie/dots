@@ -14,6 +14,7 @@ call plug#end()
 function CocPlugInstall()
 	CocInstall coc-clangd
 endfunc
+command CocPlugInstall call CocPlugInstall()
 
 " Switches
 syntax on

@@ -13,7 +13,7 @@ link() {
 
 	echo "link '$from'"
 	echo "  -> '$to'"
-	if ! rm -f "$to"; then
+	if ! rm -rf "$to"; then
 		echo "'rm' failed!"
 		echo
 		return
