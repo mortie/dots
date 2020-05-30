@@ -14,7 +14,10 @@ print_battery() {
 }
 
 print_network() {
-	nmcli device | grep "^$1" | awk -F '  +' '{print $3 " " $4}' | sed 's/ $//'
+	#nmcli device | grep "^$1" | awk -F '  +' '{print $3 " " $4}' | sed 's/ $//'
+	nmcli device | grep "  \(connected\|connecting .*\)  " | awk -F '  +' '
+		{ORS=""; gsub(/ *$/, "", $4); print sep $3 ": " $4; sep=", "}
+		END {if (NR == 0) print "disconnected"}'
 }
 
 print_backlight() {
@@ -44,7 +47,7 @@ update() {
 	echo \
 		"SND: $(print_pa_sinks) |" \
 		"BRI: $(print_backlight /sys/class/backlight/intel_backlight) |" \
-		"NET: $(print_network wlp2s0) |" \
+		"NET: $(print_network) |" \
 		"BAT: $(print_battery /sys/class/power_supply/BAT0) |" \
 		"$(print_date)"
 	return $?
