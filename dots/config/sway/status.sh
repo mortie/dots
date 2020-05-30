@@ -44,16 +44,16 @@ print_pa_sink() {
 
 	# If muted, colorize the volume.
 	if printf "%s" "$data" | grep "Mute: " | head -n 1 | grep "yes" >/dev/null; then
-		printf "%s:" "<span foreground=\"#ffb946\">$vol</span>"
+		printf "%s" "<span foreground=\"#ffb946\">$vol</span>"
 	else
-		printf "%s:" "$vol"
+		printf "%s" "$vol"
 	fi
 }
 
 print_pa_sinks() {
 	pactl list | grep "Sink #" | while read -r line; do
 		id="$(echo "$line" | sed 's/Sink #//')"
-		printf "%s" "#$id $(print_pa_sink "$id"), "
+		printf "%s" "#$id: $(print_pa_sink "$id"), "
 	done | sed 's/, $//'
 }
 
