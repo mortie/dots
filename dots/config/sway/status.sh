@@ -1,7 +1,7 @@
 #!/bin/sh
 
 percent() {
-	echo "$((($1 * 100) / $2))%"
+	echo "$((($1 * 100) / $2))$3"
 }
 
 print_date() {
@@ -10,7 +10,22 @@ print_date() {
 }
 
 print_battery() {
-	percent "$(cat "$1/charge_now")" "$(cat "$1/charge_full")"
+	perc="$(percent "$(cat "$1/charge_now")" "$(cat "$1/charge_full")")"
+	if [ "$(cat "$1/status")" = Charging ]; then
+		echo "<span foreground=\"#6eff46\">$perc%</span>"
+	elif [ "$perc" -lt 15 ]; then
+		echo "<span foreground=\"#ff4646\">$perc%</span>"
+	else
+		echo "$perc%"
+	fi
+}
+
+print_turbo() {
+	if [ "$(cat "$1/no_turbo")" = 1 ]; then
+		echo 0
+	else
+		echo 1
+	fi
 }
 
 print_network() {
@@ -20,7 +35,7 @@ print_network() {
 }
 
 print_backlight() {
-	percent "$(cat "$1/brightness")" "$(cat "$1/max_brightness")"
+	percent "$(cat "$1/brightness")" "$(cat "$1/max_brightness")" %
 }
 
 print_pa_sink() {
@@ -29,9 +44,9 @@ print_pa_sink() {
 
 	# If muted, colorize the volume.
 	if printf "%s" "$data" | grep "Mute: " | head -n 1 | grep "yes" >/dev/null; then
-		printf "%s" "<span foreground=\"#ffb946\">$vol</span>"
+		printf "%s:" "<span foreground=\"#ffb946\">$vol</span>"
 	else
-		printf "%s" "$vol"
+		printf "%s:" "$vol"
 	fi
 }
 
@@ -48,6 +63,7 @@ update() {
 		"BRI: $(print_backlight /sys/class/backlight/intel_backlight) |" \
 		"NET: $(print_network) |" \
 		"BAT: $(print_battery /sys/class/power_supply/BAT0) |" \
+		"SPD: $(print_turbo /sys/devices/system/cpu/intel_pstate) |" \
 		"$(print_date)"
 	return $?
 }
