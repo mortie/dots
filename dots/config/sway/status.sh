@@ -14,7 +14,6 @@ print_battery() {
 }
 
 print_network() {
-	#nmcli device | grep "^$1" | awk -F '  +' '{print $3 " " $4}' | sed 's/ $//'
 	nmcli device | grep "  \(connected\|connecting .*\)  " | awk -F '  +' '
 		{ORS=""; gsub(/ *$/, "", $4); print sep $3 ": " $4; sep=", "}
 		END {if (NR == 0) print "disconnected"}'
