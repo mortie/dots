@@ -41,3 +41,4 @@ link config/sway/status.sh
 link config/sway/lock.sh
 link config/sway/idle.sh
 link local/share/nvim/site/autoload/plug.vim
+link local/bin/pwrsave
