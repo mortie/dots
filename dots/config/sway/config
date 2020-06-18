@@ -22,6 +22,7 @@ set $status_path ~/.config/sway/status.sh
 set $brightness_path ~/.config/sway/brightness.py
 set $lock_path ~/.config/sway/lock.sh
 set $idle_path ~/.config/sway/idle.sh
+set $scratch_path ~/.config/sway/scratch.sh
 set $pastebin https://p.mort.coffee
 # "Functions"
 set $reload_bar $status_path reload
@@ -41,6 +42,7 @@ exec {
 	mako
 	swaybg -i ~/.config/sway/background.png
 	$idle_path
+	$scratch_path
 }
 
 # Sway colors
@@ -64,6 +66,10 @@ output "Samsung Electric Company U28E850 HTPJ700441" {
 	position 1920 0
 	scale 1.6
 }
+
+### Window specific
+
+for_window [app_id="scratchpad"] move scratchpad
 
 ### Input configuration
 
@@ -92,6 +98,9 @@ input "type:touchpad" {
 
 	# Start your launcher
 	bindsym $mod+period exec $menu
+
+	# Toggle scratchpad
+	bindsym $mod+Space scratchpad show
 
 	# Drag floating windows by holding down $mod and left mouse button.
 	# Resize them with right mouse button + $mod.
@@ -212,7 +221,7 @@ input "type:touchpad" {
 	bindsym $mod+Shift+space floating toggle
 
 	# Swap focus between the tiling area and the floating area
-	bindsym $mod+space focus mode_toggle
+	#bindsym $mod+space focus mode_toggle
 
 	# Move focus to the parent container
 	bindsym $mod+a focus parent

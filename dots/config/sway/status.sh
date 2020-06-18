@@ -29,7 +29,7 @@ print_turbo() {
 }
 
 print_network() {
-	nmcli device | grep "  \(connected\|connecting .*\)  " | awk -F '  +' '
+	nmcli device | grep -v '  bridge  ' | grep "  \(connected\|connecting .*\)  " | awk -F '  +' '
 		{ORS=""; gsub(/ *$/, "", $4); print sep $3 ": " $4; sep=", "}
 		END {if (NR == 0) print "disconnected"}'
 }
