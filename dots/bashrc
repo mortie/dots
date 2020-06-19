@@ -10,8 +10,8 @@ esac
 # History stuff
 HISTCONTROL=ignoreboth
 shopt -s histappend
-HISTSIZE=10000
-HISTFILESIZE=100000
+HISTSIZE=100000
+HISTFILESIZE=1000000
 
 # Opts
 shopt -s checkwinsize
@@ -40,6 +40,7 @@ alias la='ls -A'
 alias l='ls -CF'
 alias rscp='rsync -rclh --progress'
 alias gdiff='diff -urN --color=always'
+alias rscp="rsync -rclh --progress"
 
 # Copy stdin to clipboard
 cbcopy() {
