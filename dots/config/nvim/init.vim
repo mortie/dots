@@ -1,7 +1,7 @@
 call plug#begin()
 Plug 'yuezk/vim-js'
 Plug 'maxmellon/vim-jsx-pretty'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+"Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 "Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'pangloss/vim-javascript'
@@ -13,6 +13,7 @@ call plug#end()
 
 function CocPlugInstall()
 	CocInstall coc-clangd
+	CocInstall coc-go
 endfunc
 command CocPlugInstall call CocPlugInstall()
 
@@ -48,6 +49,7 @@ vnoremap <C-w> <C-\><C-n><C-w>
 hi Whitespace ctermfg=darkgrey
 hi ColorColumn ctermbg=black
 hi Pmenu ctermfg=NONE ctermbg=black guibg=black
+hi SpellRare ctermbg=NONE
 
 " Utility functions
 
