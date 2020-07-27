@@ -11,12 +11,15 @@ print_date() {
 
 print_battery() {
 	perc="$(percent "$(cat "$1/charge_now")" "$(cat "$1/charge_full")")"
+	uvolts="$(cat "$1/voltage_now")"
+	uamps="$(cat "$1/current_now")"
+	watts="$(((uvolts * uamps) / 1000000000000))"
 	if [ "$(cat "$1/status")" = Charging ]; then
-		echo "<span foreground=\"#6eff46\">$perc%</span>"
+		echo "<span foreground=\"#6eff46\">$perc% ${watts}W</span>"
 	elif [ "$perc" -lt 15 ]; then
-		echo "<span foreground=\"#ff4646\">$perc%</span>"
+		echo "<span foreground=\"#ff4646\">$perc% ${watts}W</span>"
 	else
-		echo "$perc%"
+		echo "$perc% ${watts}W"
 	fi
 }
 
