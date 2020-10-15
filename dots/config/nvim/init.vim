@@ -1,5 +1,5 @@
 call plug#begin()
-Plug 'yuezk/vim-js'
+"Plug 'yuezk/vim-js'
 Plug 'maxmellon/vim-jsx-pretty'
 "Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 "Plug 'octol/vim-cpp-enhanced-highlight'
@@ -14,6 +14,7 @@ call plug#end()
 function CocPlugInstall()
 	CocInstall coc-clangd
 	CocInstall coc-go
+	CocInstall coc-rust-analyzer
 endfunc
 command CocPlugInstall call CocPlugInstall()
 
@@ -32,6 +33,9 @@ set smartcase
 set splitright
 set splitbelow
 set mouse=a
+set linebreak
+set breakindent
+set showbreak=\ \ \ \ 
 
 " Terminal windows are special
 augroup TerminalStuff
@@ -92,9 +96,11 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gb <C-o>
+nmap <silent> gf <C-i>
 
 " Status line
 set statusline=
