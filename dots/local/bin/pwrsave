@@ -1,0 +1,30 @@
+#!/bin/sh
+
+set -e
+
+enable() {
+	echo 1 | sudo tee /sys/devices/system/cpu/intel_pstate/no_turbo
+	sudo cpupower frequency-set --max 2GHz
+}
+
+disable() {
+	echo 0 | sudo tee /sys/devices/system/cpu/intel_pstate/no_turbo
+	sudo cpupower frequency-set --max 10GHz
+}
+
+if [ "$1" = "off" ]; then
+	disable
+	cpupower frequency-info
+elif [ "$1" = "on" ]; then
+	enable
+	cpupower frequency-info
+elif [ -z "$1" ]; then
+	if [ "$(cat /sys/devices/system/cpu/intel_pstate/no_turbo)" = 1 ]; then
+		disable
+	else
+		enable
+	fi
+	cpupower frequency-info
+else
+	echo "Usage: $0 [on|off]"
+fi

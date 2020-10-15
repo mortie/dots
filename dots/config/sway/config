@@ -15,7 +15,8 @@ set $right l
 # Env/term
 set $env MOZ_ENABLE_WAYLAND=1
 set $term $env kitty
-set $menu dmenu-wl_path | dmenu-wl | xargs swaymsg exec -- $env
+#set $menu dmenu-wl_path | dmenu-wl | xargs swaymsg exec -- $env
+set $menu $env mauncher-launcher
 # Paths
 set $screenshot_path ~/.config/sway/screenshot.sh
 set $status_path ~/.config/sway/status.sh
@@ -38,12 +39,16 @@ exec_always {
 
 # Startup programs
 exec {
-	nextcloud
-	mako
-	swaybg -i ~/.config/sway/background.png
-	$idle_path
-	$scratch_path
+	$env wl-paste -t text --watch clipman store
+	$env nextcloud
+	$env mako
+	$env swaybg -i ~/.config/sway/background.png
+	$env $idle_path
+	$env $scratch_path
+	$env GTK_THEME=Adwaita-dark mauncher --daemon
 }
+
+exec_always swaymsg border_images.focused ~/.config/sway/shadows/
 
 # Sway colors
 client.focused           #be5046 #be5046 #ffffff #ffffff #be5046
@@ -54,17 +59,23 @@ client.unfocused         #5c6370 #3b3228 #ffffff #5c6370 #5c6370
 hide_edge_borders --i3 smart_no_gaps
 default_border pixel 3
 smart_gaps on
-gaps inner 10
+gaps inner 15
 
 output "eDP-1" {
 	scale 2
 	position 0 0
 }
 
-output "Samsung Electric Company U28E850 HTPJ700441" {
-	mode 3840x2160@30Hz
-	position 1920 0
-	scale 1.6
+output "Samsung Electric Company U28E850 H1AK500004" {
+	mode 3840x2160@59.997002Hz
+	position -2560 -265
+	scale 1.5
+	adaptive_sync on
+}
+
+output "Unknown HP E243i 6CM8170932" {
+	position -1920 0
+	scale 1
 }
 
 ### Window specific
@@ -84,6 +95,21 @@ input "type:touchpad" {
 	tap enabled
 	dwt disabld
 	natural_scroll enabled
+}
+
+input "1386:18538:Wacom_HID_486A_Pen" {
+	map_to_output eDP-1
+}
+input "1386:18538:Wacom_HID_486A_Finger" {
+	map_to_output eDP-1
+}
+
+input "1739:31251:DLL080D:01_06CB:7A13_Touchpad" {
+	scroll_factor 0.5
+}
+
+input "1133:45082:MX_Anywhere_2S_Mouse" {
+	pointer_accel -0.5
 }
 
 ### Key bindings
@@ -117,18 +143,30 @@ input "type:touchpad" {
 
 	# Lock the screen
 	bindsym mod1+l exec $lock_path
+
+	# Control mako
+	bindsym $mod+Control+Space makoctl dismiss
 #
 # Special buttons:
 #
 	# Brightness
-	bindsym XF86MonBrightnessUp exec $brightness_path 0.4 && $reload_bar || $error
+	bindsym XF86MonBrightnessUp   exec $brightness_path 0.4 && $reload_bar || $error
 	bindsym XF86MonBrightnessDown exec $brightness_path -0.4 && $reload_bar || $error
+	# Brightness (numpad)
+	bindsym $mod+KP_Home exec $brightness_path 0.4 && $reload_bar || $error
+	bindsym $mod+KP_End exec $brightness_path -0.4 && $reload_bar || $error
 	# Audio
-	bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10% && $reload_bar || $error
+	bindsym XF86AudioRaiseVolume       exec pactl set-sink-volume @DEFAULT_SINK@ +10% && $reload_bar || $error
 	bindsym Shift+XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && $reload_bar || $error
-	bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10% && $reload_bar || $error
+	bindsym XF86AudioLowerVolume       exec pactl set-sink-volume @DEFAULT_SINK@ -10% && $reload_bar || $error
 	bindsym Shift+XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && $reload_bar || $error
-	bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && $reload_bar || $error
+	bindsym XF86AudioMute              exec pactl set-sink-mute @DEFAULT_SINK@ toggle && $reload_bar || $error
+	# Audio (numpad)
+	bindsym $mod+KP_Up         exec pactl set-sink-volume @DEFAULT_SINK@ +10% && $reload_bar || $error
+	bindsym $mod+Shift+KP_Up   exec pactl set-sink-volume @DEFAULT_SINK@ +5% && $reload_bar || $error
+	bindsym $mod+KP_Down       exec pactl set-sink-volume @DEFAULT_SINK@ -10% && $reload_bar || $error
+	bindsym $mod+Shift+KP_Down exec pactl set-sink-volume @DEFAULT_SINK@ -5% && $reload_bar || $error
+	bindsym $mod+KP_Begin      exec pactl set-sink-mute @DEFAULT_SINK@ toggle && $reload_bar || $error
 	# Screenshot
 	bindsym Print exec $screenshot_path upload
 	bindsym Print+Shift exec $screenshot_path upload select

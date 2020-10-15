@@ -1,3 +1,4 @@
 {
-    "clangd.semanticHighlighting": "true"
+    "clangd.semanticHighlighting": "true",
+    "rust-analyzer.diagnostics.enableExperimental": false
 }
