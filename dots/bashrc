@@ -40,7 +40,6 @@ alias la='ls -A'
 alias l='ls -CF'
 alias rscp='rsync -rclh --progress'
 alias gdiff='diff -urN --color=always'
-alias rscp="rsync -rclh --progress"
 
 # Copy stdin to clipboard
 cbcopy() {
