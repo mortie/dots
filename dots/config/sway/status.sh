@@ -5,8 +5,7 @@ percent() {
 }
 
 print_date() {
-	date +'%a %d %b %H:%M:%S'
-	#date +'%Y-%m-%d %H:%M:%S'
+	date +'%a %d %b %H:%M'
 }
 
 print_battery() {
@@ -34,7 +33,7 @@ print_turbo() {
 print_network() {
 	nmcli device | grep -v '  bridge  ' | grep "  \(connected\|connecting .*\)  " | awk -F '  +' '
 		{ORS=""; gsub(/ *$/, "", $4); print sep $3 ": " $4; sep=", "}
-		END {if (NR == 0) print "disconnected"}'
+		END {if (NR == 0) print "disconnected"}' | sed 's/\bconnected: //g'
 }
 
 print_backlight() {
@@ -60,6 +59,10 @@ print_pa_sinks() {
 	done | sed 's/, $//'
 }
 
+print_disk() {
+	df -h --output=avail "$1" | tail -n 1 | sed 's/  *//'
+}
+
 update() {
 	echo \
 		"SND: $(print_pa_sinks) |" \
@@ -67,6 +70,7 @@ update() {
 		"NET: $(print_network) |" \
 		"BAT: $(print_battery /sys/class/power_supply/BAT0) |" \
 		"SPD: $(print_turbo /sys/devices/system/cpu/intel_pstate) |" \
+		"/: $(print_disk /) |" \
 		"$(print_date)"
 	return $?
 }
@@ -92,4 +96,4 @@ trap true USR1
 
 # 'sleep 1 & wait $!' will sleep for 1 second, but it'll be interrupted
 # by SIGUSR1.
-while update; do sleep 1 & wait $!; done
+while update; do sleep 4 & wait $!; done
