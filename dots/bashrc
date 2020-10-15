@@ -8,10 +8,11 @@ esac
 [ -e ~/.bash_secrets ] && source ~/.bash_secrets
 
 # History stuff
-HISTCONTROL=ignoreboth
+export HISTCONTROL=ignoreboth
 shopt -s histappend
-HISTSIZE=100000
-HISTFILESIZE=1000000
+export HISTSIZE=1000000
+export HISTFILESIZE=10000000
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # Opts
 shopt -s checkwinsize
