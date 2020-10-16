@@ -12,7 +12,7 @@ export HISTCONTROL=ignoreboth
 shopt -s histappend
 export HISTSIZE=1000000
 export HISTFILESIZE=10000000
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 # Opts
 shopt -s checkwinsize
