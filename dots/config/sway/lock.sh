@@ -11,6 +11,6 @@ swaylock --screenshots --clock --indicator-idle-visible \
 	--inside-color 00000088 \
 	--separator-color 00000000 \
 	--fade-in 0.1 \
-	--effect-custom "$HOME/.config/sway/glitch.so" \
+	--effect-custom "$HOME/.config/sway/glitch.c" \
 	--effect-compose "0,1.5%;-1x10%;$HOME/.config/sway/lock.svg" \
 	"$@"
