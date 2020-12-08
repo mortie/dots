@@ -1,0 +1,3 @@
+#!/bin/sh
+
+gdb -ex 'set interactive off' -ex r -ex bt -ex 'kill inferior 1' -ex q --args "$@"

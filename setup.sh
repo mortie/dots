@@ -44,3 +44,4 @@ link config/sway/idle.sh
 link config/sway/scratch.sh
 link local/share/nvim/site/autoload/plug.vim
 link local/bin/pwrsave
+link local/bin/gdx
