@@ -6,6 +6,7 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'preservim/nerdtree'
+Plug 'Raku/vim-raku'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jackguo380/vim-lsp-cxx-highlight'

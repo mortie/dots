@@ -13,7 +13,7 @@ set $down j
 set $up k
 set $right l
 # Env/term
-set $env MOZ_ENABLE_WAYLAND=1
+set $env MOZ_ENABLE_WAYLAND=1 _JAVA_AWT_WM_NONREPARENTING=1
 set $term $env kitty
 #set $menu dmenu-wl_path | dmenu-wl | xargs swaymsg exec -- $env
 set $menu $env mauncher-launcher
@@ -26,8 +26,10 @@ set $idle_path ~/.config/sway/idle.sh
 set $scratch_path ~/.config/sway/scratch.sh
 set $pastebin https://p.mort.coffee
 # "Functions"
-set $reload_bar $status_path reload
+#set $reload_bar $status_path reload
+set $reload_bar true
 set $error notify-send --urgency critical "Command failed."
+set $delay sleep 2
 
 # Toolkit stuff
 seat seat0 xcursor_theme "Yaru"
@@ -39,13 +41,15 @@ exec_always {
 
 # Startup programs
 exec {
+	$env systemctl --user import-environment WAYLAND_DISPLAY DISPLAY SWAYSOCK
 	$env wl-paste -t text --watch clipman store
-	$env nextcloud
+	$delay && $env nextcloud
 	$env mako
+	$env kanshi
 	$env swaybg -i ~/.config/sway/background.png
 	$env $idle_path
 	$env $scratch_path
-	$env GTK_THEME=Adwaita-dark mauncher --daemon
+	$delay && $env GTK_THEME=Adwaita-dark mauncher --daemon
 }
 
 exec_always swaymsg border_images.focused ~/.config/sway/shadows/
@@ -66,6 +70,11 @@ output "eDP-1" {
 	position 0 0
 }
 
+output "Unknown AG271QG4 0x000001F6" {
+	position -2560 0
+	adaptive_sync on
+}
+
 output "Samsung Electric Company U28E850 H1AK500004" {
 	mode 3840x2160@59.997002Hz
 	position -2560 -265
@@ -76,6 +85,10 @@ output "Samsung Electric Company U28E850 H1AK500004" {
 output "Unknown HP E243i 6CM8170932" {
 	position -1920 0
 	scale 1
+}
+
+output "Hewlett Packard HP E242 CN46010VQZ" {
+	position -1920 -100
 }
 
 ### Window specific
@@ -304,21 +317,22 @@ bindsym $mod+r mode "resize"
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-bar {
-	position bottom
-	pango_markup enabled
-
-	# When the status_command prints a new line to stdout, swaybar updates.
-	# The default just shows the current date and time.
-	status_command $status_path
-
-	colors {
-		focused_workspace  #000000 #000000 #ffb946
-		active_workspace   #000000 #000000 #888888
-		inactive_workspace #000000 #000000 #888888
-		statusline #dddddd
-		background #232323
-	}
-}
+#bar {
+#	position bottom
+#	pango_markup enabled
+#
+#	# When the status_command prints a new line to stdout, swaybar updates.
+#	# The default just shows the current date and time.
+#	status_command $status_path
+#
+#	colors {
+#		focused_workspace  #000000 #000000 #ffb946
+#		active_workspace   #000000 #000000 #888888
+#		inactive_workspace #000000 #000000 #888888
+#		statusline #dddddd
+#		background #232323
+#	}
+#}
+exec beanbar --height 20
 
 include /etc/sway/config.d/*

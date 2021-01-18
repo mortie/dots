@@ -1,0 +1,6 @@
+#!/usr/bin/python3
+
+import NetworkManager
+
+connections = NetworkManager.Settings.ListConnections()
+print([repr(x) for x in connections])
