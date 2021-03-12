@@ -1,11 +1,14 @@
 call plug#begin()
+Plug 'editorconfig/editorconfig-vim'
 "Plug 'yuezk/vim-js'
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'lervag/vimtex'
 "Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 "Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'preservim/nerdtree'
+Plug 'wfxr/minimap.vim', {'do': ':!cargo install --locked code-minimap'}
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jackguo380/vim-lsp-cxx-highlight'
@@ -101,6 +104,35 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gb <C-o>
 nmap <silent> gf <C-i>
+
+" Swap windows with <CTRL>-w m then <CTRL>-w m
+let s:markedWinNum = -1
+function! MarkWindowSwap()
+    let s:markedWinNum = winnr()
+endfunction
+function! DoWindowSwap()
+    "Mark destination
+    let curNum = winnr()
+    let curBuf = bufnr( "%" )
+    exe s:markedWinNum . "wincmd w"
+    "Switch to source and shuffle dest->source
+    let markedBuf = bufnr( "%" )
+    "Hide and open so that we aren't prompted and keep history
+    exe 'hide buf' curBuf
+    "Switch to dest and shuffle source->dest
+    exe curNum . "wincmd w"
+    "Hide and open so that we aren't prompted and keep history
+    exe 'hide buf' markedBuf
+endfunction
+function! WindowSwapping()
+    if s:markedWinNum == -1
+        call MarkWindowSwap()
+    else
+        call DoWindowSwap()
+        let s:markedWinNum = -1
+    endif
+endfunction
+nnoremap <C-w>m :call WindowSwapping()<CR>
 
 " Status line
 set statusline=
