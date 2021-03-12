@@ -9,6 +9,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'preservim/nerdtree'
 Plug 'wfxr/minimap.vim', {'do': ':!cargo install --locked code-minimap'}
+Plug 'Raku/vim-raku'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jackguo380/vim-lsp-cxx-highlight'
