@@ -106,6 +106,10 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gb <C-o>
 nmap <silent> gf <C-i>
 
+" Ctrl+left/right to switch tabs
+nmap <silent> <C-Left> :tabprevious<CR>
+nmap <silent> <C-Right> :tabnext<CR>
+
 " Swap windows with <CTRL>-w m then <CTRL>-w m
 let s:markedWinNum = -1
 function! MarkWindowSwap()
