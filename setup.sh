@@ -19,7 +19,7 @@ link() {
 		return
 	fi
 	if ! mkdir -p "$(dirname "$to")"; then
-		echo "'mv' failed!"
+		echo "'mkdir' failed!"
 		echo
 		return
 	fi
