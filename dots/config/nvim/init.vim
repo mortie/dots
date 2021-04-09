@@ -110,6 +110,12 @@ nmap <silent> gf <C-i>
 nmap <silent> <C-Left> :tabprevious<CR>
 nmap <silent> <C-Right> :tabnext<CR>
 
+" Fix cursor for terminal mode
+" https://github.com/neovim/neovim/issues/14320
+" Remove once nvim is fixed upstream
+autocmd FocusLost * hi TermCursor cterm=NONE ctermbg=darkgrey gui=NONE guibg=darkgrey
+autocmd FocusGained * hi TermCursor cterm=reverse gui=reverse
+
 " Swap windows with <CTRL>-w m then <CTRL>-w m
 let s:markedWinNum = -1
 function! MarkWindowSwap()
