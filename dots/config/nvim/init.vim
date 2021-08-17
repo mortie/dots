@@ -23,6 +23,9 @@ function CocPlugInstall()
 endfunc
 command CocPlugInstall call CocPlugInstall()
 
+" This makes CSS/JS in HTML sane
+let g:html_indent_script1="zero"
+
 " Switches
 syntax on
 set number
