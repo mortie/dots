@@ -11,9 +11,12 @@ Plug 'preservim/nerdtree'
 Plug 'wfxr/minimap.vim', {'do': ':!cargo install --locked code-minimap'}
 Plug 'Raku/vim-raku'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
+Plug 'tikhomirov/vim-glsl'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jackguo380/vim-lsp-cxx-highlight'
+
+Plug '~/cloud/dev/osyris/vim-osyris'
 call plug#end()
 
 function CocPlugInstall()

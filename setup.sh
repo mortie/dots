@@ -1,6 +1,6 @@
 #!/bin/sh
 
-srcdir="$(readlink -f "$(dirname "$0")/dots")"
+srcdir="$(pwd)/dots"
 destdir="$HOME"
 
 link() {
@@ -31,6 +31,7 @@ link() {
 }
 
 link bashrc
+link zshrc
 link config/nvim/init.vim
 link config/nvim/syntax
 link config/nvim/coc-settings.json
