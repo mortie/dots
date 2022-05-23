@@ -13,18 +13,28 @@ Plug 'Raku/vim-raku'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
 Plug 'tikhomirov/vim-glsl'
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neovim/nvim-lspconfig'
+Plug 'simrat39/rust-tools.nvim'
 Plug 'jackguo380/vim-lsp-cxx-highlight'
+
+Plug 'sjl/badwolf'
 
 Plug '~/cloud/dev/osyris/vim-osyris'
 call plug#end()
 
-function CocPlugInstall()
-	CocInstall coc-clangd
-	CocInstall coc-go
-	CocInstall coc-rust-analyzer
-endfunc
-command CocPlugInstall call CocPlugInstall()
+set background=dark
+colorscheme badwolf
+
+lua require'lspconfig'.clangd.setup{}
+lua require'lspconfig'.rust_analyzer.setup{}
+lua require'rust-tools'.setup({})
+
+nmap <silent> [g <cmd>lua vim.diagnostic.goto_prev()<cr>
+nmap <silent> ]g <cmd>lua vim.diagnostic.goto_next()<cr>
+nmap <silent> gb <C-o>
+nmap <silent> gf <C-i>
+nmap <silent> gd <cmd>lua vim.lsp.buf.definition()<cr>
+nmap <silent> gD <cmd>lua vim.lsp.buf.declaration()<cr>
 
 " This makes CSS/JS in HTML sane
 let g:html_indent_script1="zero"
@@ -34,7 +44,7 @@ syntax on
 set number
 set list
 set listchars=tab:>·
-set colorcolumn=80
+set colorcolumn=100
 set inccommand=nosplit
 set shiftwidth=4
 set tabstop=4
@@ -59,12 +69,6 @@ augroup END
 tnoremap <C-w> <C-\><C-n><C-w>
 inoremap <C-w> <C-\><C-n><C-w>
 vnoremap <C-w> <C-\><C-n><C-w>
-
-" Highlights
-hi Whitespace ctermfg=darkgrey
-hi ColorColumn ctermbg=black
-hi Pmenu ctermfg=NONE ctermbg=black guibg=black
-hi SpellRare ctermbg=NONE
 
 " Utility functions
 
@@ -96,22 +100,6 @@ let g:go_highlight_diagnostic_errors = 0
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_experimental_simple_template_highlight = 1
-
-" Coc stuff
-set updatetime=300
-let g:lsp_cxx_hl_ft_whitelist = ['c', 'cpp', 'objc', 'objcpp', 'cc', 'h', 'hh', 'hpp']
-
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gb <C-o>
-nmap <silent> gf <C-i>
 
 " Ctrl+left/right to switch tabs
 nmap <silent> <C-Left> :tabprevious<CR>
@@ -155,7 +143,6 @@ nnoremap <C-w>m :call WindowSwapping()<CR>
 " Status line
 set statusline=
 set statusline+='%f'\ %h%w%m%r\ 
-set statusline+=%{coc#status()}%{get(b:,'coc_current_function','')}\ 
 set statusline+=%#warningmsg#
 set statusline+=%*
 set statusline+=%=%(%l,%c%V\ %=\ %P%)
