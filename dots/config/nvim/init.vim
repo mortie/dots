@@ -12,6 +12,7 @@ Plug 'wfxr/minimap.vim', {'do': ':!cargo install --locked code-minimap'}
 Plug 'Raku/vim-raku'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
 Plug 'tikhomirov/vim-glsl'
+Plug 'kergoth/vim-bitbake'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'simrat39/rust-tools.nvim'
