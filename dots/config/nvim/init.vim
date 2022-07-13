@@ -35,6 +35,9 @@ lua <<EOF
 			enable = true,
 			additional_vim_regex_highlighting = false,
 		},
+		indent = {
+			enable = true,
+		},
 	}
 EOF
 
@@ -132,8 +135,10 @@ let g:vsnip_filetypes.typescriptreact = ['typescript']
 set background=dark
 colorscheme badwolf
 
-lua require'lspconfig'.clangd.setup{}
-lua require'lspconfig'.rust_analyzer.setup{}
+lua << EOF
+require'lspconfig'.clangd.setup{}
+require'lspconfig'.rust_analyzer.setup{}
+EOF
 lua require'rust-tools'.setup({})
 
 nmap <silent> [g <cmd>lua vim.diagnostic.goto_prev()<cr>
