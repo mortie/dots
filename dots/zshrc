@@ -20,7 +20,7 @@ alias vim=nvim
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias rscp='rsync -rclh --progress'
+alias rcp='rsync -Lh --progress'
 alias gdiff='diff -urN --color=always'
 alias gcomm='git log | head -n 1'
 
