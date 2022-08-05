@@ -5,7 +5,7 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'lervag/vimtex'
 "Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 "Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'ctrlpvim/ctrlp.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'preservim/nerdtree'
 Plug 'wfxr/minimap.vim', {'do': ':!cargo install --locked code-minimap'}
@@ -23,6 +23,7 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 Plug 'sjl/badwolf'
 
@@ -135,6 +136,9 @@ let g:vsnip_filetypes.typescriptreact = ['typescript']
 set background=dark
 colorscheme badwolf
 
+" This fixes an issue where listchars aren't highlighted by visual selection properly
+hi NonText ctermbg=none
+
 lua << EOF
 require'lspconfig'.clangd.setup{}
 require'lspconfig'.rust_analyzer.setup{}
@@ -168,7 +172,6 @@ set splitbelow
 set mouse=a
 set linebreak
 set breakindent
-set showbreak=\ \ \ \ 
 
 " Terminal windows are special
 augroup TerminalStuff
@@ -197,9 +200,8 @@ au BufNewFile,BufRead *.m setlocal shiftwidth=2 tabstop=2
 au BufNewFile,BufRead *.vue setlocal filetype=html
 au BufNewFile,BufRead *.cup setlocal filetype=cup
 
-" CtrlP
-" (ctrl+l is ctrl+p with dvorak, and p is a bit far away...)
-let g:ctrlp_map = '<c-l>'
+" Fuzzy finder
+nmap <c-l> :FZF<CR>
 
 " NERDTree
 command Ex NERDTree
