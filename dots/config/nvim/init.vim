@@ -140,6 +140,7 @@ colorscheme badwolf
 " This fixes an issue where listchars aren't highlighted by visual selection properly
 hi NonText ctermbg=none
 
+lua <<EOF
 require'lspconfig'.clangd.setup{}
 require'lspconfig'.rust_analyzer.setup{}
 require'lspconfig'.gopls.setup{}
