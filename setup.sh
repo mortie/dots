@@ -46,3 +46,6 @@ link config/sway/scratch.sh
 link local/share/nvim/site/autoload/plug.vim
 link local/bin/pwrsave
 link local/bin/gdx
+link doom.d/config.el
+link doom.d/init.el
+link doom.d/packages.el
