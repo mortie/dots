@@ -34,8 +34,19 @@
 ;; `load-theme' function. This is the default:
 ;(setq doom-theme 'doom-one)
 (setq doom-theme 'badwolf)
+(set-face-background 'default "#000000")
+(require 'whitespace)
+(global-whitespace-mode 1)
+(setq whitespace-style '(face tabs tab-mark))
 (custom-set-faces
- '(default ((t (:background "#00000")))))
+  '(whitespace-tab ((t (:background "#000000" :foreground "#777777"))))
+  '(term-color-blue ((t (:foreground "#4455dd")))))
+(setq frame-background-mode 'dark)
+
+(unless (display-graphic-p)
+  (xterm-mouse-mode t)
+  (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
+  (global-set-key (kbd "<mouse-5>") 'scroll-up-line))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.

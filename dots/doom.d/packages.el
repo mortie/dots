@@ -50,3 +50,5 @@
 ;(unpin! t)
 
 (package! badwolf-theme)
+(package! rustic)
+(package! meson-mode)
