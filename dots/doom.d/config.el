@@ -40,7 +40,7 @@
 (setq whitespace-style '(face tabs tab-mark))
 (custom-set-faces
   '(whitespace-tab ((t (:background "#000000" :foreground "#777777"))))
-  '(term-color-blue ((t (:foreground "#4455dd")))))
+  '(term-color-blue ((t (:foreground "#5577ff")))))
 (setq frame-background-mode 'dark)
 
 (unless (display-graphic-p)
@@ -52,6 +52,10 @@
   '(evil-split-window-below t)
   '(evil-vsplit-window-right t))
 
+(defun te ()
+  "Create a terminal in the current buffer"
+  (interactive)
+  (command-execute ":ansi-term"))
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
