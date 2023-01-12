@@ -1,0 +1,42 @@
+#!/bin/sh
+
+# SST: SSH, but reliable, using tmux.
+# When you lose connection, the connection will be re-tried, and you will get back where you
+# left off.
+# An aggressive heartbeat setting is used to detect network issues much more reliably than
+# SSH's default settings would.
+# 
+# Usage:
+#   sst <host>:           Create a temporary tmux session, which will be killed when it hasn't
+#                         been used in a while
+#   sst <host> <session>: Connect to an existing tmux session
+
+if [ -z "$1" ]; then
+	echo "Usage: $0 <server> [tmux session]"
+fi
+
+server="$1"
+if [ -n "$2" ]; then
+	tmux="$2"
+	temporary=0
+else
+	id="sstemp-$RANDOM"
+	tmux="$id"
+	temporary=1
+fi
+
+if [ "$temporary" = 1 ]; then
+	tempfile="/tmp/$USER-$id"
+	cmd="([ -n \"\$BASH_VERSION\" ] && shopt -s huponexit); "
+	cmd="${cmd}([ ! -e $tempfile ] && nohup >$tempfile.nohup 2>&1 sh -c \"while :; do sleep 600; if ! [ -e $tempfile ]; then tmux kill-session -t $tmux; break; fi; rm -f $tempfile; done\") & "
+	cmd="${cmd}if [ -e $tempfile ]; then NEWSESSION=0; else NEWSESSION=1; fi; "
+	cmd="${cmd}(while :; do touch $tempfile; sleep 10; done) & "
+	cmd="${cmd}if [ \$NEWSESSION = 0 ]; then tmux attach -t $tmux; else tmux new -s $tmux; fi"
+else
+	cmd="tmux attach -t $tmux"
+fi
+
+while :; do
+	ssh -t -o 'ServerAliveInterval 2' -o 'ServerAliveCountMax 2' "$server" "$cmd" && break
+	sleep 2
+done
