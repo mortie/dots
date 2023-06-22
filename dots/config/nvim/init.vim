@@ -146,6 +146,7 @@ require'lspconfig'.clangd.setup{}
 require'lspconfig'.rust_analyzer.setup{}
 require'lspconfig'.gopls.setup{}
 require'lspconfig'.tsserver.setup{}
+require'lspconfig'.zls.setup{}
 require'rust-tools'.setup({})
 EOF
 
