@@ -157,6 +157,10 @@ nmap <silent> gf <C-i>
 nmap <silent> gd <cmd>lua vim.lsp.buf.definition()<cr>
 nmap <silent> gD <cmd>lua vim.lsp.buf.declaration()<cr>
 
+" CSI-u broke some stuff, let's try to fix it
+tmap <S-Space> <Space>
+tmap <S-Enter> <Enter>
+
 " This makes CSS/JS in HTML sane
 let g:html_indent_script1="zero"
 
