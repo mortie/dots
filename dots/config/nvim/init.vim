@@ -24,7 +24,9 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', {'tag': '0.1.2'}
 
 Plug 'sjl/badwolf'
 
@@ -210,7 +212,9 @@ au BufNewFile,BufRead *.vue setlocal filetype=html
 au BufNewFile,BufRead *.cup setlocal filetype=cup
 
 " Fuzzy finder
-nmap <c-l> :FZF<CR>
+"nmap <c-l> :FZF<CR>
+nmap <c-l> :Telescope find_files<CR>
+hi TelescopeMatching ctermfg=214
 
 " NERDTree
 command Ex NERDTree
