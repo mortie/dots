@@ -1,0 +1,24 @@
+#!/bin/sh
+
+bin() {
+	curl -s --upload-file - https://p.mort.coffee | wl-copy
+}
+
+if [ "$1" = "-h" ]; then
+	echo "Usage: $0 [full|win|sel]"
+elif [ "$1" = full ]; then
+	grim - | bin
+elif [ "$1" = "win" ]; then
+	geo="$(swaymsg -t get_tree | jq -r '.. | select(.type?)
+		| select(.focused==true) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')"
+	grim -g "$geo" - | bin
+elif [ "$1" = sel ] || [ "$1" == "" ]; then
+	geo="$(slurp -d)"
+	if [ -n "$geo" ]; then
+		grim -g "$geo" - | bin
+	fi
+else
+	echo "Invalid option: $1"
+	echo "Usage: $0 [full|win|sel]"
+	exit 1
+fi
