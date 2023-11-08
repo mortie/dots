@@ -41,6 +41,10 @@ exec swayidle -w \
          timeout 300 '~/.config/sway/swaylock.sh' \
          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
          before-sleep '~/.config/sway/swaylock.sh immediate'
+
+# Notification daemon
+exec mako --background-color '#222222' --border-color '#111111'
+
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
