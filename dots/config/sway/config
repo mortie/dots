@@ -128,6 +128,11 @@ input type:keyboard {
     # Hardware interaction
     bindsym XF86MonBrightnessUp exec light -T 1.25
     bindsym XF86MonBrightnessDown exec light -T 0.8
+    bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+ && ~/.config/sway/status.sh reload
+    bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%- && ~/.config/sway/status.sh reload
+    bindsym Shift+XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && ~/.config/sway/status.sh reload
+    bindsym Shift+XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && ~/.config/sway/status.sh reload
+    bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && ~/.config/sway/status.sh reload
 #
 # Workspaces:
 #
