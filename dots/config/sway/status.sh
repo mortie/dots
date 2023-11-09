@@ -61,10 +61,27 @@ show_volume() {
 	wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/Volume: \(\S\+\)/\1%/; s/^0//; s/\.//; s/^00/0/;'
 }
 
-while :; do
-	echo "Vol: $(show_volume) | Net: $(show_network) | Bat: $(show_battery macsmc-battery) | $(show_date)  "
-	spinner_tick
+show_player() {
+	local status
+	if status="$(playerctl status 2>/dev/null)"; then
+		local artist="$(playerctl metadata artist)"
+		echo "$status: $artist | "
+	fi
+}
 
+show() {
+	printf "%s" \
+		"$(show_player)" \
+		"Vol: $(show_volume)" \
+		" | Net: $(show_network)" \
+		" | Bat: $(show_battery macsmc-battery)" \
+		" | $(show_date)"
+}
+
+while :; do
+	echo "$(show)  "
+
+	spinner_tick
 	sleep 0.5 &
 	echo "$!" > "$pidfile"
 	wait
