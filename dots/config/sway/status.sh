@@ -18,13 +18,15 @@ show_spinner() {
 		2) echo '[...]';;
 		3) echo '[ ..]';;
 		4) echo '[  .]';;
-		5) echo '[   ]';;
+		5) echo '[ ..]';;
+		6) echo '[...]';;
+		7) echo '[.. ]';;
 	esac
 }
 
 spinner_tick() {
 	spinner_idx=$((spinner_idx + 1))
-	if [ "$spinner_idx" -gt 5 ]; then
+	if [ "$spinner_idx" -ge 8 ]; then
 		spinner_idx=0
 	fi
 }
@@ -34,9 +36,20 @@ show_date() {
 }
 
 show_battery() {
+	local status="$(cat /sys/class/power_supply/"$1"/status)"
 	local charge_full="$(cat /sys/class/power_supply/"$1"/charge_full)"
 	local charge_now="$(cat /sys/class/power_supply/"$1"/charge_now)"
-	echo "$(((charge_now * 100) / charge_full))%"
+
+	local symbol='?'
+	if [ "$status" = Charging ]; then
+		symbol="▲"
+	elif [ "$status" = Discharging ]; then
+		symbol="▼"
+	elif [ "$symbol" = Full ]; then
+		symbol="●"
+	fi
+
+	echo "$(((charge_now * 100) / charge_full))% $symbol"
 }
 
 show_network() {
@@ -58,22 +71,28 @@ show_network() {
 }
 
 show_volume() {
-	wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/Volume: \(\S\+\)/\1%/; s/^0//; s/\.//; s/^00/0/;'
+	local vol="$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/Volume: \(\S\+\)/\1%/; s/^0//; s/\.//; s/^00/0/;')"
+	if [ -n "$vol" ]; then
+		echo "Vol: $vol | "
+	fi
 }
 
 show_player() {
 	local status
 	if status="$(playerctl status 2>/dev/null)"; then
-		local artist="$(playerctl metadata artist)"
-		echo "$status: $artist | "
+		local name="$(playerctl metadata artist)"
+		if [ -z "$name" ]; then
+			name="$(playerctl metadata title)"
+		fi
+		echo "$status: $name | "
 	fi
 }
 
 show() {
 	printf "%s" \
 		"$(show_player)" \
-		"Vol: $(show_volume)" \
-		" | Net: $(show_network)" \
+		"$(show_volume)" \
+		"Net: $(show_network)" \
 		" | Bat: $(show_battery macsmc-battery)" \
 		" | $(show_date)"
 }
@@ -82,7 +101,7 @@ while :; do
 	echo "$(show)  "
 
 	spinner_tick
-	sleep 0.5 &
+	sleep 1 &
 	echo "$!" > "$pidfile"
 	wait
 done

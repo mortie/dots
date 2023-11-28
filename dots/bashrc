@@ -140,9 +140,9 @@ prompt_git() {
 
 	local branch="$(git branch 2>/dev/null | grep '^\*' | sed 's/..//')"
 	if [ -n "$branch" ]; then
-		printf '\001\e[91m%s\002' "$branch"
+		printf '\001\e[91m\002%s' "$branch"
 		if ! git diff --quiet; then
-			printf '\001\e[93m\e[1m*\002'
+			printf '\001\e[93m\e[1m\002*'
 		fi
 		printf ' '
 	fi

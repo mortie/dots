@@ -36,13 +36,6 @@ link config/nvim/init.vim
 link config/nvim/syntax
 link config/nvim/coc-settings.json
 link config/kitty/kitty.conf
-link config/sway/config
-link config/sway/brightness.py
-link config/sway/screenshot.sh
-link config/sway/status.sh
-link config/sway/lock.sh
-link config/sway/idle.sh
-link config/sway/scratch.sh
 link local/share/nvim/site/autoload/plug.vim
 link local/bin/pwrsave
 link local/bin/gdx
