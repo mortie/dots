@@ -155,6 +155,8 @@ input type:keyboard {
     bindsym $mod+0 workspace number 10
     bindsym $mod+bracketleft workspace prev
     bindsym $mod+bracketright workspace next
+    bindgesture swipe:right workspace prev
+    bindgesture swipe:left workspace next
     # Move focused container to workspace
     bindsym $mod+Shift+1 move container to workspace number 1
     bindsym $mod+Shift+2 move container to workspace number 2
@@ -207,6 +209,8 @@ input type:keyboard {
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+    bindgesture swipe:up scratchpad show
+    bindgesture swipe:down scratchpad show
 
     for_window [title="scratchpad"] move scratchpad
 #

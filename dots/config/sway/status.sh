@@ -84,7 +84,11 @@ show_player() {
 		if [ -z "$name" ]; then
 			name="$(playerctl metadata title)"
 		fi
-		echo "$status: $name | "
+		local str="$(echo "$status: $name")"
+		if [ ${#str} -gt 40 ]; then
+			local str="$(echo "$str" | head -c 38).."
+		fi
+		echo "$str | "
 	fi
 }
 
