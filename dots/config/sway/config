@@ -8,14 +8,15 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term foot
+set $term kitty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 set $menu sh -c 'PATH=$PATH:$HOME/.local/bin GTK_THEME=Adwaita:dark mauncher-launcher'
 
 default_border pixel 3
-hide_edge_borders smart_no_gaps
+hide_edge_borders --i3 smart_no_gaps
+smart_gaps on
 
 ### Output configuration
 #
@@ -46,7 +47,7 @@ exec swayidle -w \
 exec mako --background-color '#222222' --border-color '#111111'
 
 # Scratchpad terminal
-exec ~/.config/sway/scratchpad.sh
+exec waitland ~/.config/sway/scratchpad.sh
 
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
@@ -73,6 +74,11 @@ input type:keyboard {
     xkb_options "compose:ralt,ctrl:swap_rwin_rctl"
     repeat_rate 50
     repeat_delay 200
+}
+
+input type:touchpad {
+    dwt disabled
+    tap enabled
 }
 
 ### Key bindings
@@ -103,6 +109,9 @@ input type:keyboard {
 
     # Lock
     bindsym $mod+apostrophe exec ~/.config/sway/swaylock.sh immediate
+
+    # Toggle touchpad
+    bindsym $mod+d exec ~/.config/sway/toggle-touchpad.sh
 #
 # Moving around:
 #
@@ -212,7 +221,7 @@ input type:keyboard {
     bindgesture swipe:up scratchpad show
     bindgesture swipe:down scratchpad show
 
-    for_window [title="scratchpad"] move scratchpad
+    for_window [app_id="scratchpad"] move scratchpad
 #
 # Resizing containers:
 #
@@ -261,5 +270,9 @@ bar {
         inactive_workspace #000000 #000000 #888888
     }
 }
+
+exec firefox
+
+exec sh -c '[ -e ~/.swaylocked ] && sleep 0.1 && ~/.config/sway/swaylock.sh immediate'
 
 include /etc/sway/config.d/*

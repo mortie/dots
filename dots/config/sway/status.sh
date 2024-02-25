@@ -45,7 +45,7 @@ show_battery() {
 		symbol="▲"
 	elif [ "$status" = Discharging ]; then
 		symbol="▼"
-	elif [ "$symbol" = Full ]; then
+	elif [ "$status" = Full ]; then
 		symbol="●"
 	fi
 
@@ -60,7 +60,7 @@ show_network() {
 	fi
 
 	local local state="$(echo "$net" | awk '{print $1}')"
-	name="$(echo "$net" | awk '{print $2}')"
+	name="$(echo "$net" | awk '{$1=""; print substr($0, 2)}')"
 	if [ "$state" = "activated" ]; then
 		echo "$name"
 	elif [ "$state" = "activating" ]; then

@@ -1,9 +1,16 @@
 #!/bin/sh
 
-args="-f -S --effect-blur 10x5"
+args="-S --effect-blur 10x5"
+
+lock() {
+	touch ~/.swaylocked
+	if ~/.local/bin/swaylock "$@"; then
+		rm -f ~/.swaylocked
+	fi
+}
 
 if [ "$1" = immediate ]; then
-	~/.local/bin/swaylock $args
+	lock $args &
 else
-	~/.local/bin/swaylock $args --grace 10 --fade-in 5
+	lock $args --grace 20 --fade-in 10 &
 fi
