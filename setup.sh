@@ -36,6 +36,7 @@ link config/nvim/init.vim
 link config/nvim/syntax
 link config/nvim/coc-settings.json
 link config/kitty/kitty.conf
+link config/starstruck.lsp
 link local/share/nvim/site/autoload/plug.vim
 link local/bin/pwrsave
 link local/bin/gdx

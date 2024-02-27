@@ -271,7 +271,7 @@ bar {
     }
 }
 
-exec firefox
+exec taskset 0xfc firefox
 
 exec sh -c '[ -e ~/.swaylocked ] && sleep 0.1 && ~/.config/sway/swaylock.sh immediate'
 

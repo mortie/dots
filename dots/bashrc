@@ -135,35 +135,35 @@ if ! shopt -oq posix; then
 	fi
 fi
 
-prompt_git() {
-	local x=$?
-
-	local branch="$(git branch 2>/dev/null | grep '^\*' | sed 's/..//')"
-	if [ -n "$branch" ]; then
-		printf '\001\e[91m\002%s' "$branch"
-		if ! git diff --quiet; then
-			printf '\001\e[93m\e[1m\002*'
-		fi
-		printf ' '
-	fi
-
-	return $x
-}
-
-prompt_dollar() {
-	local x=$?
-
-	if [ $x = 0 ]; then
-		printf '\001\e[32m\002$\001\e[0m\002 '
-	else
-		printf '\001\e[31m\002$\001\e[0m\002 '
-	fi
-
-	return $x
-}
-
-PS1='\[\e[0;31m\]\u\[\e[m\]@\[\e[0;32m\]\h\[\e[m\] \[\e[0;36m\]\w\[\e[m\] $(prompt_git)$(prompt_dollar)'
-#PS1='$(starstruck --bash -e $?)'
+#prompt_git() {
+#	local x=$?
+#
+#	local branch="$(git branch 2>/dev/null | grep '^\*' | sed 's/..//')"
+#	if [ -n "$branch" ]; then
+#		printf '\001\e[91m\002%s' "$branch"
+#		if ! git diff --quiet; then
+#			printf '\001\e[93m\e[1m\002*'
+#		fi
+#		printf ' '
+#	fi
+#
+#	return $x
+#}
+#
+#prompt_dollar() {
+#	local x=$?
+#
+#	if [ $x = 0 ]; then
+#		printf '\001\e[32m\002$\001\e[0m\002 '
+#	else
+#		printf '\001\e[31m\002$\001\e[0m\002 '
+#	fi
+#
+#	return $x
+#}
+#
+#PS1='\[\e[0;31m\]\u\[\e[m\]@\[\e[0;32m\]\h\[\e[m\] \[\e[0;36m\]\w\[\e[m\] $(prompt_git)$(prompt_dollar)'
+PS1='$(starstruck --bash -e $?)'
 
 [ -e ~/.bashrc-local ] && source ~/.bashrc-local || true
 [ -e "$HOME/.cargo/env" ] && source "$HOME/.cargo/env" || true
