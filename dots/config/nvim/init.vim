@@ -184,6 +184,8 @@ set splitbelow
 set mouse=a
 set linebreak
 set breakindent
+set cindent
+set cinoptions=l1:0g0N-s
 
 " Terminal windows are special
 augroup TerminalStuff
