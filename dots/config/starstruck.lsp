@@ -18,13 +18,13 @@
 	(if has-git? {
 		(list
 			(bold-red git-branch)
-			(if [(read (exec "git" "diff" "--name-only")) != ""] {
+			(if [(read (exec "git" "-C" git-workdir "diff" "--name-only")) != ""] {
 				(bold-yellow "*")
 			})
 			space)})
 
 	; Newline if there's not much space left on the line
-	(if [column > [term-width - 40]] "\n")
+	(if [column > [term-width - 40]] {"\n"})
 
 	; Prompt character
 	(if [exit-code == 0]
