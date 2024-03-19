@@ -2,7 +2,7 @@
 	; Username and host part
 	(if is-remote?
 		{(bold-green "∞" space)})
-	(match
+	(case
 		{[username == "root"] (list (red "root") "@")}
 		{[username != login-name] (list (bold-green username) "@")})
 	(if is-remote?
