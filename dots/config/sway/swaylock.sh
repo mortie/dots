@@ -1,6 +1,6 @@
 #!/bin/sh
 
-args="-S --effect-blur 10x5"
+args="--ignore-empty-password -S --effect-blur 10x5"
 
 lock() {
 	touch ~/.swaylocked
