@@ -88,6 +88,11 @@ input type:touchpad {
 
     # Toggle touchpad
     bindsym $mod+d exec ~/.config/sway/toggle-touchpad.sh
+
+    # Notifications
+    bindsym $mod+Shift+Return exec makoctl invoke
+    bindsym $mod+Shift+Backspace exec makoctl dismiss
+
 #
 # Moving around:
 #
@@ -124,6 +129,7 @@ input type:touchpad {
     bindsym XF86AudioPlay exec playerctl play-pause
     bindsym XF86AudioNext exec playerctl next
     bindsym XF86AudioPrev exec playerctl previous
+
 #
 # Workspaces:
 #
@@ -157,6 +163,7 @@ input type:touchpad {
     bindsym $mod+Shift+bracketright move container to workspace next
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
+
 #
 # Layout stuff:
 #
@@ -182,6 +189,7 @@ input type:touchpad {
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
+
 #
 # Scratchpad:
 #
@@ -198,6 +206,7 @@ input type:touchpad {
     bindgesture swipe:down scratchpad show
 
     for_window [app_id="scratchpad"] move scratchpad
+
 #
 # Resizing containers:
 #
