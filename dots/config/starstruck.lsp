@@ -3,8 +3,10 @@
 	(if is-remote?
 		{(bold-green "∞" space)})
 	(case
-		{[username == "root"] (list (red "root") "@")}
-		{[username != login-name] (list (bold-green username) "@")})
+		{[username == "root"]
+			(list (red "root") "@")}
+		{[[username != login-name] && [login-name != "root"]]
+			(list (bold-green username) "@")})
 	(if is-remote?
 		{(bold-red host)}
 		{(bold-yellow host)})

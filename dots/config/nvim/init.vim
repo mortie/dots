@@ -26,7 +26,7 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 "Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', {'tag': '0.1.2'}
+Plug 'nvim-telescope/telescope.nvim'
 
 Plug 'sjl/badwolf'
 
@@ -138,7 +138,7 @@ let g:vsnip_filetypes.typescriptreact = ['typescript']
 
 set background=dark
 colorscheme badwolf
-hi Normal ctermbg=black
+hi Normal ctermbg=black guibg=black
 
 " This fixes an issue where listchars aren't highlighted by visual selection properly
 hi NonText ctermbg=none
@@ -150,6 +150,16 @@ require'lspconfig'.gopls.setup{}
 require'lspconfig'.tsserver.setup{}
 require'lspconfig'.zls.setup{}
 require'lspconfig'.pylsp.setup{}
+require'lspconfig'.pylsp.setup{}
+require'lspconfig'.kotlin_language_server.setup{
+	settings = {
+		kotlin = {
+			inlayHints = {
+				typeHints = true,
+			}
+		}
+	}
+}
 require'rust-tools'.setup({})
 EOF
 
