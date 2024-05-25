@@ -141,7 +141,7 @@ colorscheme badwolf
 hi Normal ctermbg=black guibg=black
 
 " This fixes an issue where listchars aren't highlighted by visual selection properly
-hi NonText ctermbg=none
+hi NonText ctermbg=none guibg=none
 
 lua <<EOF
 require'lspconfig'.clangd.setup{}
