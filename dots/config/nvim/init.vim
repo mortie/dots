@@ -150,7 +150,6 @@ require'lspconfig'.gopls.setup{}
 require'lspconfig'.tsserver.setup{}
 require'lspconfig'.zls.setup{}
 require'lspconfig'.pylsp.setup{}
-require'lspconfig'.pylsp.setup{}
 require'lspconfig'.kotlin_language_server.setup{
 	settings = {
 		kotlin = {
@@ -160,6 +159,7 @@ require'lspconfig'.kotlin_language_server.setup{
 		}
 	}
 }
+require'lspconfig'.kotlin_language_server.setup{}
 require'rust-tools'.setup({})
 EOF
 
