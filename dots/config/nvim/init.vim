@@ -182,7 +182,7 @@ syntax on
 set number
 set list
 set listchars=tab:>·
-set colorcolumn=100
+set colorcolumn=80
 set inccommand=nosplit
 set shiftwidth=4
 set tabstop=4
