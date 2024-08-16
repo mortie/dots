@@ -154,7 +154,6 @@ require'lspconfig'.gopls.setup{}
 require'lspconfig'.tsserver.setup{}
 require'lspconfig'.zls.setup{}
 require'lspconfig'.pylsp.setup{}
-require'lspconfig'.pylsp.setup{}
 require'lspconfig'.kotlin_language_server.setup{
 	settings = {
 		kotlin = {
@@ -164,6 +163,7 @@ require'lspconfig'.kotlin_language_server.setup{
 		}
 	}
 }
+require'lspconfig'.kotlin_language_server.setup{}
 require'rust-tools'.setup({})
 EOF
 
@@ -186,7 +186,7 @@ syntax on
 set number
 set list
 set listchars=tab:>·
-set colorcolumn=100
+set colorcolumn=80
 set inccommand=nosplit
 set shiftwidth=4
 set tabstop=4
