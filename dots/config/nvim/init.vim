@@ -143,6 +143,10 @@ hi Normal ctermbg=black guibg=black
 " This fixes an issue where listchars aren't highlighted by visual selection properly
 hi NonText ctermbg=none guibg=none
 
+" This fixes an issue where suggestion boxes are black on dark grey
+hi Pmenu guifg=White
+"hi Pmenu guibg=lightgrey
+
 lua <<EOF
 require'lspconfig'.clangd.setup{}
 require'lspconfig'.rust_analyzer.setup{}
