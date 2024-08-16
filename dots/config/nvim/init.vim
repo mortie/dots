@@ -145,7 +145,9 @@ hi NonText ctermbg=none guibg=none
 
 " This fixes an issue where suggestion boxes are black on dark grey
 hi Pmenu guifg=White
-"hi Pmenu guibg=lightgrey
+
+" Make LSP warnings/errors pretty
+hi NormalFloat guibg=#26221c
 
 lua <<EOF
 require'lspconfig'.clangd.setup{}
