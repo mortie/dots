@@ -153,7 +153,7 @@ lua <<EOF
 require'lspconfig'.clangd.setup{}
 require'lspconfig'.rust_analyzer.setup{}
 require'lspconfig'.gopls.setup{}
-require'lspconfig'.tsserver.setup{}
+require'lspconfig'.vtsls.setup{}
 require'lspconfig'.zls.setup{}
 require'lspconfig'.pylsp.setup{}
 require'lspconfig'.kotlin_language_server.setup{
