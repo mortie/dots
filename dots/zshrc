@@ -117,6 +117,9 @@ zstyle ':completion:*' menu yes select
 # Keys
 bindkey -e
 
+# Options
+unsetopt BEEP
+
 ##
 # Prompt
 ##
