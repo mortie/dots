@@ -1,0 +1,6 @@
+theme = UltraDark
+palette = 2=#00ff00
+palette = 4=#00aaff
+palette = 6=#00ffff
+
+keybind = global:cmd+grave_accent=toggle_quick_terminal
