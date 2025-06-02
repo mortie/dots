@@ -34,8 +34,8 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 # Example configuration:
 #
 exec swayidle -w \
-         timeout 300 '~/.config/sway/swaylock.sh' \
-         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         timeout 600 '~/.config/sway/swaylock.sh' \
+         timeout 800 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
          before-sleep '~/.config/sway/swaylock.sh immediate'
 
 # Notification daemon
@@ -48,8 +48,8 @@ input type:keyboard {
     xkb_layout us
     xkb_variant dvorak
     xkb_options "compose:ralt,ctrl:swap_rwin_rctl"
-    repeat_rate 50
-    repeat_delay 200
+    repeat_rate 40
+    repeat_delay 140
 }
 
 input type:touchpad {
