@@ -165,10 +165,12 @@ fi
 #PS1='\[\e[0;31m\]\u\[\e[m\]@\[\e[0;32m\]\h\[\e[m\] \[\e[0;36m\]\w\[\e[m\] $(prompt_git)$(prompt_dollar)'
 PS1='$(starstruck --bash -e $?)'
 
-[ -e ~/.bashrc-local ] && source ~/.bashrc-local || true
-[ -e "$HOME/.cargo/env" ] && source "$HOME/.cargo/env" || true
+# Load cargo
+[ -e "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-. "$HOME/.cargo/env"
+# This should be the last part.
+if [ -e "$HOME/.bashrc-local" ]; then
+	source "$HOME/.bashrc-local"
+fi
+
+# If anything appears below this line, move it to .bashrc-local.

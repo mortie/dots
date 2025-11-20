@@ -1,0 +1,45 @@
+#!/bin/bash
+
+set -euo pipefail
+
+if [ $# -lt 1 ]; then
+	echo "Usage: $0 [pv options] <file>"
+	exit 1
+fi
+
+argv=("$@")
+file="${argv[${#argv[@]}-1]}"
+argv[${#argv[@]}-1]='-'
+
+size_xz() {
+	xz -vl "$1" \
+		| grep -m1 "Uncompressed size:" \
+		| grep -o '(.* B)' \
+		| sed 's/[(), B]//g'
+}
+
+size_gz() {
+	gzip -l "$1" \
+		| tail -n 1 \
+		| awk '{print $2}'
+}
+
+size_zstd() {
+	zstd -d <"$1" | wc -c | awk '{print $1}'
+}
+
+if [[ $file == *.xz ]]; then
+	size="$(size_xz "$file")"
+	cmd=(xz -d)
+elif [[ $file == *.gz ]]; then
+	size="$(size_gz "$file")"
+	cmd=(gzip -d)
+elif [[ $file == *.zst ]]; then
+	size="$(size_zstd "$file")"
+	cmd=(zstd -d)
+else
+	echo "Unrecognized file extension: $file"
+	exit 1
+fi
+
+<"$file" "${cmd[@]}" | pv --size "$size" "${argv[@]}"

@@ -150,10 +150,37 @@ hi Pmenu guifg=White
 hi NormalFloat guibg=#26221c
 
 lua <<EOF
-require'lspconfig'.clangd.setup{}
+require'lspconfig'.clangd.setup{
+	filetypes = { "c", "cpp", "objc", "objcpp", "cuda" }
+}
 require'lspconfig'.rust_analyzer.setup{}
 require'lspconfig'.gopls.setup{}
-require'lspconfig'.vtsls.setup{}
+require'lspconfig'.vtsls.setup{
+	settings = {
+		implicitProjectConfiguration = {
+			checkJs = true,
+		},
+	},
+	handlers = {
+		-- Remove diagnostic 80001:
+		-- https://github.com/LunarVim/LunarVim/discussions/4239
+		["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
+			if result.diagnostics == nil then
+				return
+			end
+			local idx = 1
+			while idx <= #result.diagnostics do
+				local entry = result.diagnostics[idx]
+				if entry.code == 80001 then
+					table.remove(result.diagnostics, idx)
+				else
+					idx = idx + 1
+				end
+			end
+		vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+		end,
+	},
+}
 require'lspconfig'.zls.setup{}
 require'lspconfig'.pylsp.setup{}
 require'lspconfig'.kotlin_language_server.setup{
@@ -166,7 +193,8 @@ require'lspconfig'.kotlin_language_server.setup{
 	}
 }
 require'lspconfig'.kotlin_language_server.setup{}
-require'rust-tools'.setup({})
+require'lspconfig'.dartls.setup{}
+require'rust-tools'.setup{}
 EOF
 
 nmap <silent> [g <cmd>lua vim.diagnostic.goto_prev()<cr>

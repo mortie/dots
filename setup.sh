@@ -42,6 +42,7 @@ link config/wezterm/wezterm.lua
 link local/share/nvim/site/autoload/plug.vim
 link local/bin/pwrsave
 link local/bin/gdx
+link local/bin/zpv
 link doom.d/config.el
 link doom.d/init.el
 link doom.d/packages.el

@@ -102,23 +102,22 @@ to() {
 	done
 }
 
-# Env vars
-export PATH="/usr/lib/go-1.13/bin:$HOME/go/bin:$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
-
 # Completion
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' menu yes select
-
-# Load local stuff
-[ -e ~/.bashrc-local ] && source ~/.bashrc-local || true
-[ -e "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 
 # Keys
 bindkey -e
 
 # Options
 unsetopt BEEP
+
+# Add Go
+export PATH="/usr/lib/go-1.13/bin:$HOME/go/bin:$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
+
+# Load cargo
+[ -e "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 
 ##
 # Prompt
@@ -129,40 +128,9 @@ setopt PROMPT_SUBST
 
 PS1='$(starstruck --zsh -e $?)'
 
-#if [ "$USER" = root ]; then
-#	PROMPT_USER="%{$reset_color%}%{${fg[red]}%}$USER%{$reset_color%}@"
-#else
-#	PROMPT_USER=""
-#fi
-#
-#prompt_git() {
-#	if prompt_current_branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"; then
-#		local space=0
-#		if [ "$prompt_current_branch" != master ]; then
-#			printf "%s" "%{${fg_bold[red]}%}$prompt_current_branch"
-#			space=1
-#		fi
-#		if ! [ -z "$(git status --porcelain)" ]; then
-#			printf "%s" "%{${fg_bold[yellow]}%}*"
-#			space=1
-#		fi
-#		if [ $space = 1 ]; then
-#			printf " "
-#		fi
-#	fi
-#}
-#
-#PROMPT_GIT='$(prompt_git)'
-#
-#if [ -z "$SSH_CLIENT" ]; then
-#	PROMPT_HOST="$PROMPT_USER%{${fg_bold[yellow]}%}%m "
-#else
-#	PROMPT_HOST="%{${fg_bold[green]}%}∞ $PROMPT_USER%{${fg_bold[red]}%}%m "
-#fi
-#PROMPT_CWD="%{${fg_bold[cyan]}%}%~ "
-#PROMPT_ARROW="%(?:%{$fg_bold[green]%}$ :%{$fg_bold[red]%}$ %s)"
-#PS1="$PROMPT_HOST$PROMPT_CWD$PROMPT_GIT$PROMPT_ARROW%{$reset_color%}"
+# This should be the last part.
+if [ -e "$HOME/.bashrc-local" ]; then
+	source "$HOME/.bashrc-local"
+fi
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+# If anything appears below this line, move it to .bashrc-local.
