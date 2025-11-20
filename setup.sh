@@ -37,6 +37,7 @@ link config/nvim/syntax
 link config/nvim/coc-settings.json
 link config/kitty/kitty.conf
 link config/ghostty/config
+link config/helix/config.toml
 link config/starstruck.lsp
 link config/wezterm/wezterm.lua
 link local/share/nvim/site/autoload/plug.vim

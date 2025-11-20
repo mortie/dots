@@ -1,0 +1,9 @@
+theme = "flexoki_dark"
+
+[keys.normal]
+g = { b = "jump_backward", f = "jump_forward" }
+"{" = "goto_prev_paragraph"
+"}" = "goto_next_paragraph"
+
+[keys.insert]
+C-c = "normal_mode"
