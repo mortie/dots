@@ -40,6 +40,8 @@ link config/ghostty/config
 link config/helix/config.toml
 link config/starstruck.lsp
 link config/wezterm/wezterm.lua
+link config/gram/keymap.jsonc
+link config/gram/settings.jsonc
 link local/share/nvim/site/autoload/plug.vim
 link local/bin/pwrsave
 link local/bin/gdx

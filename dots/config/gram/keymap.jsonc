@@ -1,0 +1,56 @@
+// Gram keymap
+//
+// For information on binding keys, see the Gram
+// documentation: gram://docs/key-bindings
+//
+// To see the default key bindings run `gram: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // "shift shift": "file_finder::Toggle"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      // "j k": "vim::NormalBefore"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-§": "terminal_panel::Toggle"
+    }
+  },
+  {
+    "bindings": {
+      "ctrl-w w": "terminal_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "(VimControl && !menu)",
+    "bindings": {
+      "g b": "pane::GoBack"
+    }
+  },
+  {
+    "context": "(VimControl && !menu)",
+    "bindings": {
+      "g f": "pane::GoForward"
+    }
+  },
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "] g": "editor::GoToDiagnostic"
+    }
+  },
+  {
+    "context": "vim_operator == helix_previous",
+    "bindings": {
+      "[ g": "editor::GoToPreviousDiagnostic"
+    }
+  }
+]
