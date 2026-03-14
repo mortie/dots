@@ -9,8 +9,12 @@
 {
   "format_on_save": "off",
   "show_completions_on_input": true,
+  "show_whitespaces": "all",
+  "whitespace_map": {
+    "space": " ",
+  },
   "inlay_hints": {
-    "enabled": true
+    "enabled": true,
   },
   "buffer_line_height": "standard",
   "base_keymap": "VSCode",
