@@ -52,5 +52,17 @@
     "bindings": {
       "[ g": "editor::GoToPreviousDiagnostic"
     }
+  },
+  {
+    "context": "((VimControl && !menu) || !Editor)",
+    "bindings": {
+      "ctrl-w h": "workspace::ActivatePaneLeft"
+    }
+  },
+  {
+    "context": "((VimControl && !menu) || !Editor)",
+    "bindings": {
+      "ctrl-w l": "workspace::ActivatePaneRight"
+    }
   }
 ]
